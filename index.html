@@ -37,7 +37,62 @@
 
     </style>
 </head>
-<body>
+<body><!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spline Project</title>
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden; /* Prevents scrolling */
+            }
+            .spline-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+             .name {
+                position: absolute;
+                top: 10%; 
+                left: 10%; 
+                transform: translate(-50%, -50%); /* Ensure centering is correct */
+                color: white; /* Set text color to white */
+                font-size: 60px; /* Adjust as needed */
+                z-index: 1; /* Ensure the text stays above the iframe */
+            }
+             
+            .scribble {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 200px; /* Adjust size as needed */
+                height: 2   00px; /* Adjust size as needed */
+                z-index: 2; /* Ensure it covers the watermark */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="spline-container">
+            <iframe src='https://my.spline.design/particles-585e389492e710db090584b28831ed85/' frameborder='0' style="width:100%; height:100%;" allowfullscreen></iframe>
+            <h1 class="name">Aaron </h1> 
+        </div>
+        <div class="scribble">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M20,30 C20,30 40,50 60,30 C80,10 100,50 40,80 C20,90 10,70 20,30 Z" fill="none" stroke="#ff0000" stroke-width="5   "/>
+                <path d="M30,20 C30,20 50,40 70,20 C90,0 110,40 50,70 C30,80 20,60 30,20 Z" fill="none" stroke="#ff0000" stroke-width="3"/>
+                <path d="M10,40 C10,40 30,60 50,40 C70,20 90,60 30,90 C10,100 0,80 10,40 Z" fill="none" stroke="#ff0000" stroke-width="3"/>
+            </svg>
+        </div>
+    </body>
+    </html>
+    
     
     <div class="spline-container">
         <iframe src='https://my.spline.design/particles-585e389492e710db090584b28831ed85/' frameborder='0' style="width:100%; height:100%;" allowfullscreen></iframe>
