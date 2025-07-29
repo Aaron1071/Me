@@ -37,6 +37,14 @@
                 height: 400px;
             }
         }
+        .typing-cursor {
+            border-right: 2px solid white;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: white; }
+        }
     </style>
 </head>
 <body class="text-gray-300">
@@ -44,19 +52,19 @@
     <!-- Header & Navigation -->
     <header id="header" class="fixed top-0 w-full z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" id="header-logo" class="text-xl font-bold text-white">Aaron Kuruvilla</a>
-            <nav id="header-nav" class="hidden md:flex space-x-8 text-white">
+            <a href="#" id="header-logo" class="text-xl font-bold text-white pointer-events-auto">Aaron Kuruvilla</a>
+            <nav id="header-nav" class="hidden md:flex space-x-8 text-white pointer-events-auto">
                 <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
                 <a href="#skills" class="hover:text-gray-300 transition-colors">Skills</a>
                 <a href="#projects" class="hover:text-gray-300 transition-colors">Projects</a>
                 <a href="#contact" class="hover:text-gray-300 transition-colors">Contact</a>
             </nav>
-            <button id="mobile-menu-button" class="md:hidden text-2xl text-white">
+            <button id="mobile-menu-button" class="md:hidden text-2xl text-white pointer-events-auto">
                 &#9776;
             </button>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-black/95 px-6 pb-4">
+        <div id="mobile-menu" class="hidden md:hidden bg-black/95 px-6 pb-4 pointer-events-auto">
             <a href="#about" class="block py-2 text-white hover:text-gray-300 transition-colors">About</a>
             <a href="#skills" class="block py-2 text-white hover:text-gray-300 transition-colors">Skills</a>
             <a href="#projects" class="block py-2 text-white hover:text-gray-300 transition-colors">Projects</a>
@@ -68,10 +76,12 @@
         <!-- Hero Section -->
         <section id="home" class="h-screen relative overflow-hidden bg-black">
             <iframe src='https://my.spline.design/particles-585e389492e710db090584b28831ed85/' frameborder='0' class="absolute top-0 left-0 w-full h-full z-0"></iframe>
-            <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white bg-black/50">
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4">Aaron Kuruvilla</h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-8">Full Stack Developer</p>
-                <a href="#projects" class="bg-gray-200 text-black font-bold py-3 px-8 rounded-full hover:bg-white transition-transform transform hover:scale-105 inline-block">
+            <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white bg-black/5 pointer-events-none">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-4 pointer-events-auto">Aaron Kuruvilla</h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 pointer-events-auto min-h-[2.25rem]">
+                    <span id="typing-text"></span><span class="typing-cursor"></span>
+                </p>
+                <a href="#projects" class="bg-gray-200 text-black font-bold py-3 px-8 rounded-full hover:bg-white transition-transform transform hover:scale-105 inline-block pointer-events-auto">
                     View My Work
                 </a>
             </div>
@@ -314,6 +324,34 @@
                     });
                 });
             });
+
+            const typingTextElement = document.getElementById('typing-text');
+            const words = ["Full Stack Developer", "Student", "Cybersecurity Enthusiast", "Lifelong Learner"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentWord = words[wordIndex];
+                if (isDeleting) {
+                    typingTextElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingTextElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentWord.length) {
+                    setTimeout(() => isDeleting = true, 2000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                }
+
+                const typingSpeed = isDeleting ? 100 : 200;
+                setTimeout(type, typingSpeed);
+            }
+            type();
         });
 
         function openModal(modalId) {
